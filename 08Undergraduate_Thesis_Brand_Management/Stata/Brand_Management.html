@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>Brand Management and Consumer Perception | Stata </title><style>
+:root {
+  --navy: #18324a;
+  --blue: #315b7d;
+  --ink: #26323d;
+  --muted: #66727d;
+  --rule: #d7dee5;
+  --paper: #ffffff;
+  --page: #eef2f5;
+  --soft: #f6f8fa;
+  --code: #f4f6f8;
+  --note: #f1f5f8;
+}
+* { box-sizing: border-box; }
+html { background: var(--page); scroll-behavior: smooth; }
+body {
+  max-width: 1120px;
+  margin: 36px auto;
+  padding: 64px 78px 82px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Times New Roman", Times, serif;
+  font-size: 17px;
+  line-height: 1.68;
+  box-shadow: 0 12px 34px rgba(24,50,74,.09);
+}
+body > h1:first-of-type {
+  font-size: 2.55rem;
+  text-align: center;
+  border: 0;
+  margin: 0 0 .15em;
+  letter-spacing: -.02em;
+}
+body > h2:first-of-type {
+  text-align: center;
+  border: 0;
+  margin: 0 0 1.25em;
+  color: var(--muted);
+  font-size: 1.28rem;
+  font-weight: 400;
+}
+body > p:first-of-type {
+  max-width: 690px;
+  margin: 0 auto 2.2em;
+  padding: 16px 22px;
+  text-align: center;
+  background: var(--soft);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  color: #43515d;
+}
+h1, h2, h3 { color: var(--navy); line-height: 1.25; page-break-after: avoid; }
+h1 {
+  margin: 2.2em 0 .7em;
+  padding-bottom: .28em;
+  font-size: 1.85rem;
+  border-bottom: 2px solid var(--navy);
+}
+h2 {
+  margin: 1.8em 0 .65em;
+  padding-bottom: .24em;
+  font-size: 1.34rem;
+  border-bottom: 1px solid var(--rule);
+}
+h3 { margin: 1.55em 0 .5em; font-size: 1.12rem; }
+h1 a, h2 a, h3 a { color: inherit; text-decoration: none; border: 0; }
+p { margin: .72em 0; }
+strong { color: #172b3a; }
+hr { margin: 2.25em 0; border: 0; border-top: 1px solid var(--rule); }
+ul, ol { padding-left: 1.55em; }
+li { margin: .25em 0; }
+code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: .84em;
+  background: var(--code);
+  padding: .12em .3em;
+  border-radius: 3px;
+}
+pre {
+  margin: 1.15em 0 1.7em;
+  padding: 19px 21px;
+  overflow-x: auto;
+  background: var(--code);
+  border: 1px solid #dde3e8;
+  border-left: 4px solid #718da4;
+  border-radius: 5px;
+  color: #202a33;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 12.6px;
+  line-height: 1.48;
+  white-space: pre;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.025);
+}
+pre code { padding: 0; background: transparent; font-size: inherit; }
+blockquote {
+  margin: 1.45em 0;
+  padding: 16px 20px;
+  background: var(--note);
+  border-left: 4px solid var(--blue);
+  color: #334b5d;
+}
+blockquote p { margin: .25em 0; }
+table {
+  width: 100%;
+  margin: 1.35em 0 1.9em;
+  border-collapse: collapse;
+  font-size: .92em;
+}
+th {
+  padding: 10px 12px;
+  background: #e9f0f5;
+  color: var(--navy);
+  text-align: left;
+  border-top: 1px solid #aebdca;
+  border-bottom: 2px solid #8298aa;
+}
+td { padding: 9px 12px; vertical-align: top; border-bottom: 1px solid var(--rule); }
+tbody tr:nth-child(even) { background: #fafbfc; }
+body > ul:last-of-type code { white-space: nowrap; }
+a { color: var(--blue); }
+@media print {
+  @page { margin: 18mm 17mm; }
+  html { background: #fff; }
+  body { max-width: none; margin: 0; padding: 0; box-shadow: none; font-size: 11pt; }
+  body > h1:first-of-type { font-size: 22pt; }
+  h1 { font-size: 16pt; }
+  h2 { font-size: 13pt; }
+  h3 { font-size: 11.5pt; }
+  pre { font-size: 7.8pt; white-space: pre-wrap; break-inside: avoid; }
+  table, blockquote { break-inside: avoid; }
+}
+@media (max-width: 760px) {
+  html { background: #fff; }
+  body { margin: 0; padding: 30px 24px 50px; box-shadow: none; font-size: 16px; }
+  body > h1:first-of-type { font-size: 2rem; }
+  h1 { font-size: 1.55rem; }
+  pre { font-size: 11px; }
+}
+</style></head><body><h1><a href="#brand-management-and-consumer-perception" id="brand-management-and-consumer-perception">Brand Management and Consumer Perception</a></h1>
+<h2><a href="#dynamic-stata-report" id="dynamic-stata-report">Dynamic Stata Report</a></h2>
+<p><strong>Study:</strong> Undergraduate thesis (2022)<br/>
+<strong>Empirical setting:</strong> International apparel industry<br/>
+<strong>Estimation method:</strong> Ordinary Least Squares (OLS)</p>
+<hr/>
+<h2><a href="#about-this-replication" id="about-this-replication">About this replication</a></h2>
+<p>This dynamic document preserves scripts and outputs of the six Stata regression models used in the undergraduate thesis <em>The Impact of Brand Management on Consumer Perception: Evidence from the International Apparel Industry</em>.</p>
+<h3><a href="#conventions" id="conventions">Conventions</a></h3>
+<ul>
+<li>Each reported regression uses <strong>31 complete observations</strong>.</li>
+<li>The models are OLS regressions with an intercept.</li>
+<li>Statistical significance is discussed at the 5% level unless otherwise stated.</li>
+<li>Coefficients are interpreted as associations conditional on the variables in each specification; the models do not by themselves establish causal effects.</li>
+<li>Source datasets are loaded but never overwritten by this report.</li>
+</ul>
+<hr/>
+<h1><a href="#1-overall-brand-management-and-total-consumer-perception" id="1-overall-brand-management-and-total-consumer-perception">1. Overall Brand Management and Total Consumer Perception</a></h1>
+<h2><a href="#11-research-question" id="11-research-question">1.1 Research question</a></h2>
+<p>The first model examines whether the aggregate <strong>Brand Management</strong> measure is associated with <strong>Total Consumer Perception</strong>.</p>
+<p>The specification is:</p>
+<p><strong>Total Consumer Perception = β₀ + β₁(Brand Management) + ε</strong></p>
+<h2><a href="#12-data-inspection" id="12-data-inspection">1.2 Data inspection</a></h2>
+<p>The surviving analytical dataset for this model is <code>3.1_English.dta</code>.</p>
+<pre><code>. use "3.1_English.dta", clear
+
+. describe brand_management total_consumer_perception
+
+              storage   display    value
+variable name   type    format     label      variable label
+---------------------------------------------------------------------------------------------
+brand_managem~t float   %9.0g                 Brand Management
+total_consume~n float   %9.0g                 Total Consumer Perception
+
+. summarize brand_management total_consumer_perception
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+brand_mana~t |         31    594.1606    1294.402   .0000182   6678.174
+total_cons~n |         31    2512.295    4350.369   .5150438   15902.95
+
+</code></pre>
+<h2><a href="#13-ols-regression" id="13-ols-regression">1.3 OLS regression</a></h2>
+<pre><code>. regress total_consumer_perception brand_management
+
+      Source |       SS           df       MS      Number of obs   =        31
+-------------+----------------------------------   F(1, 29)        =     22.84
+       Model |   250128586         1   250128586   Prob &gt; F        =    0.0000
+    Residual |   317642702        29  10953196.6   R-squared       =    0.4405
+-------------+----------------------------------   Adj R-squared   =    0.4213
+       Total |   567771288        30  18925709.6   Root MSE        =    3309.6
+
+----------------------------------------------------------------------------------
+total_consumer~n |      Coef.   Std. Err.      t    P&gt;|t|     [95% Conf. Interval]
+-----------------+----------------------------------------------------------------
+brand_management |   2.230755   .4668106     4.78   0.000      1.27602     3.18549
+           _cons |   1186.868   655.9404     1.81   0.081    -154.6805    2528.417
+----------------------------------------------------------------------------------
+
+</code></pre>
+<h2><a href="#14-interpretation" id="14-interpretation">1.4 Interpretation</a></h2>
+<p>The model uses <strong>31 observations</strong> and produces <strong>R² ≈ 0.4405</strong>. Brand Management has an estimated coefficient of approximately <strong>2.2308</strong> with <strong>p &lt; 0.001</strong>.</p>
+<p>Within this analytical sample, higher aggregate Brand Management is therefore associated with higher Total Consumer Perception. A one-unit increase in the Brand Management measure corresponds to an estimated 2.231-unit increase in Total Consumer Perception in this specification.</p>
+<p>The model explains approximately <strong>44.1%</strong> of the observed variation in Total Consumer Perception. The coefficient, standard error, significance level, and model fit reproduce the corresponding thesis regression to the displayed precision.</p>
+<hr/>
+<h1><a href="#2-brand-management-dimensions-and-total-consumer-perception" id="2-brand-management-dimensions-and-total-consumer-perception">2. Brand Management Dimensions and Total Consumer Perception</a></h1>
+<h2><a href="#21-research-question" id="21-research-question">2.1 Research question</a></h2>
+<p>The second model decomposes Brand Management into four dimensions:</p>
+<ol>
+<li><strong>Brand Positioning</strong></li>
+<li><strong>Brand Image</strong></li>
+<li><strong>Brand Extension</strong></li>
+<li><strong>Brand Marketing</strong></li>
+</ol>
+<p>The model evaluates their conditional associations with Total Consumer Perception:</p>
+<p><strong>Total Consumer Perception = β₀ + β₁(Positioning) + β₂(Image) + β₃(Extension) + β₄(Marketing) + ε</strong></p>
+<h2><a href="#22-data-inspection" id="22-data-inspection">2.2 Data inspection</a></h2>
+<pre><code>. use "3.2_English.dta", clear
+
+. summarize brand_positioning brand_image brand_extension ///
+&gt;           brand_marketing total_consumer_perception
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+brand_posi~g |         31    30174.02    18294.98    1393.45    59954.2
+ brand_image |         31     11072.9    6792.265    1912.27    20527.4
+brand_exte~n |         31      18.475    18.38584          2     102.25
+brand_mark~g |         31    238.9669      309.96    3.21728   1094.182
+total_cons~n |         39    2000.245    3999.047        .46   15902.95
+
+</code></pre>
+<h2><a href="#23-ols-regression" id="23-ols-regression">2.3 OLS regression</a></h2>
+<pre><code>. regress total_consumer_perception ///
+&gt;         brand_positioning brand_image brand_extension brand_marketing
+
+      Source |       SS           df       MS      Number of obs   =        31
+-------------+----------------------------------   F(4, 26)        =     16.25
+       Model |   405359841         4   101339960   Prob &gt; F        =    0.0000
+    Residual |   162104778        26  6234799.17   R-squared       =    0.7143
+-------------+----------------------------------   Adj R-squared   =    0.6704
+       Total |   567464620        30  18915487.3   Root MSE        =      2497
+
+-----------------------------------------------------------------------------------
+total_consumer_~n |      Coef.   Std. Err.      t    P&gt;|t|     [95% Conf. Interval]
+------------------+----------------------------------------------------------------
+brand_positioning |   .0667448   .0303794     2.20   0.037     .0042991    .1291906
+      brand_image |   .1084275   .0793777     1.37   0.184    -.0547357    .2715906
+  brand_extension |  -8.021378   25.36104    -0.32   0.754    -60.15175    44.10899
+  brand_marketing |   7.832343   1.987196     3.94   0.001     3.747604    11.91708
+            _cons |  -2421.746    1129.36    -2.14   0.042     -4743.18    -100.313
+-----------------------------------------------------------------------------------
+
+</code></pre>
+<h2><a href="#24-interpretation" id="24-interpretation">2.4 Interpretation</a></h2>
+<p>The model uses <strong>31 complete observations</strong>, with <strong>R² ≈ 0.7143</strong> and adjusted <strong>R² ≈ 0.6704</strong>.</p>
+<p><strong>Brand Positioning</strong> has a positive coefficient of approximately <strong>0.0667</strong> (<em>p</em> ≈ 0.037), while <strong>Brand Marketing</strong> has a positive coefficient of approximately <strong>7.8323</strong> (<em>p</em> ≈ 0.001). Both are statistically significant at the 5% level conditional on the other predictors.</p>
+<p><strong>Brand Image</strong> is positive but not statistically significant (<em>p</em> ≈ 0.184), while <strong>Brand Extension</strong> is negative and not statistically significant (<em>p</em> ≈ 0.754).</p>
+<p>The four-dimensional model explains approximately <strong>71.4%</strong> of the observed variation in Total Consumer Perception.</p>
+<hr/>
+<h1><a href="#3-consumer-perception-components" id="3-consumer-perception-components">3. Consumer Perception Components</a></h1>
+<p>The thesis further analyzes three components of Consumer Perception. The Stata datasets operationalize these outcomes as:</p>
+<ul>
+<li><strong>ED Expansion Driver</strong> for the Brand Awareness analysis;</li>
+<li><strong>LD Loyalty Driver</strong> for the Brand Attitude/Loyalty analysis; and</li>
+<li><strong>PD Price Driver</strong> for the Purchase Intention analysis.</li>
+</ul>
+<hr/>
+<h1><a href="#31-brand-awareness-ed-expansion-driver" id="31-brand-awareness-ed-expansion-driver">3.1 Brand Awareness / ED Expansion Driver</a></h1>
+<h2><a href="#research-question" id="research-question">Research question</a></h2>
+<p>This model examines how the four Brand Management dimensions are associated with the outcome used in the thesis’s <strong>Brand Awareness</strong> analysis.</p>
+<h2><a href="#data-inspection" id="data-inspection">Data inspection</a></h2>
+<pre><code>. use "3.3.1_English.dta", clear
+
+. summarize brand_positioning brand_image brand_extension ///
+&gt;           brand_marketing ed_expansion_driver
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+brand_posi~g |         31    30174.02    18294.98    1393.45    59954.2
+ brand_image |         31     11072.9    6792.268    1912.27   20527.41
+brand_exte~n |         31      18.475    18.38584          2     102.25
+brand_mark~g |         31    227.4692     331.235    7.34227   1841.937
+ed_expansi~r |         31    2.011966    2.173394   .2809466   11.31553
+
+</code></pre>
+<h2><a href="#ols-regression" id="ols-regression">OLS regression</a></h2>
+<pre><code>. regress ed_expansion_driver ///
+&gt;         brand_positioning brand_image brand_extension brand_marketing
+
+      Source |       SS           df       MS      Number of obs   =        31
+-------------+----------------------------------   F(4, 26)        =     43.34
+       Model |  123.227255         4  30.8068138   Prob &gt; F        =    0.0000
+    Residual |  18.4819831        26  .710845502   R-squared       =    0.8696
+-------------+----------------------------------   Adj R-squared   =    0.8495
+       Total |  141.709238        30  4.72364127   Root MSE        =    .84312
+
+-----------------------------------------------------------------------------------
+ed_expansion_dr~r |      Coef.   Std. Err.      t    P&gt;|t|     [95% Conf. Interval]
+------------------+----------------------------------------------------------------
+brand_positioning |   .0000401   9.19e-06     4.36   0.000     .0000212     .000059
+      brand_image |  -.0000299   .0000244    -1.22   0.232    -.0000801    .0000203
+  brand_extension |   .0078708   .0085845     0.92   0.368    -.0097749    .0255164
+  brand_marketing |   .0052111   .0004982    10.46   0.000      .004187    .0062351
+            _cons |  -.1976356   .3612639    -0.55   0.589    -.9402241     .544953
+-----------------------------------------------------------------------------------
+
+</code></pre>
+<h2><a href="#interpretation" id="interpretation">Interpretation</a></h2>
+<p>The model has <strong>R² ≈ 0.8696</strong> and adjusted <strong>R² ≈ 0.8495</strong>.</p>
+<p><strong>Brand Positioning</strong> and <strong>Brand Marketing</strong> have positive, statistically significant coefficients (<em>p</em> &lt; 0.001 for both). <strong>Brand Image</strong> and <strong>Brand Extension</strong> are not statistically significant at the 5% level.</p>
+<p>The model explains approximately <strong>87.0%</strong> of the observed variation in ED Expansion Driver.</p>
+<hr/>
+<h1><a href="#32-brand-attitude-ld-loyalty-driver" id="32-brand-attitude-ld-loyalty-driver">3.2 Brand Attitude / LD Loyalty Driver</a></h1>
+<h2><a href="#research-question" id="research-question">Research question</a></h2>
+<p>This model examines how the four Brand Management dimensions are associated with the outcome used in the thesis’s <strong>Brand Attitude/Loyalty</strong> analysis.</p>
+<h2><a href="#data-inspection" id="data-inspection">Data inspection</a></h2>
+<pre><code>. use "3.3.2_English.dta", clear
+
+. summarize brand_positioning brand_image brand_extension ///
+&gt;           brand_marketing ld_loyalty_driver
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+brand_posi~g |         31    30174.02    18294.98    1393.45    59954.2
+ brand_image |         31     11072.9    6792.265    1912.27    20527.4
+brand_exte~n |         31      18.475    18.38584          2     102.25
+brand_mark~g |         31    227.4692    331.2354    7.34227    1841.94
+ld_loyalty~r |         31    .8694234    .0259865   .8432609   .9382778
+
+</code></pre>
+<h2><a href="#ols-regression" id="ols-regression">OLS regression</a></h2>
+<pre><code>. regress ld_loyalty_driver ///
+&gt;         brand_positioning brand_image brand_extension brand_marketing
+
+      Source |       SS           df       MS      Number of obs   =        31
+-------------+----------------------------------   F(4, 26)        =      8.79
+       Model |  .011647217         4  .002911804   Prob &gt; F        =    0.0001
+    Residual |  .008611686        26  .000331219   R-squared       =    0.5749
+-------------+----------------------------------   Adj R-squared   =    0.5095
+       Total |  .020258903        30  .000675297   Root MSE        =     .0182
+
+-----------------------------------------------------------------------------------
+ld_loyalty_driver |      Coef.   Std. Err.      t    P&gt;|t|     [95% Conf. Interval]
+------------------+----------------------------------------------------------------
+brand_positioning |   2.00e-08   1.98e-07     0.10   0.921    -3.88e-07    4.28e-07
+      brand_image |   2.74e-06   5.27e-07     5.19   0.000     1.65e-06    3.82e-06
+  brand_extension |   -.000076   .0001853    -0.41   0.685    -.0004569    .0003049
+  brand_marketing |   9.06e-06   .0000108     0.84   0.407     -.000013    .0000312
+            _cons |   .8378477   .0077982   107.44   0.000     .8218183    .8538771
+-----------------------------------------------------------------------------------
+
+</code></pre>
+<h2><a href="#interpretation" id="interpretation">Interpretation</a></h2>
+<p>The model has <strong>R² ≈ 0.5749</strong> and adjusted <strong>R² ≈ 0.5095</strong>.</p>
+<p><strong>Brand Image</strong> is the only Brand Management dimension with a statistically significant coefficient at the 5% level in this specification. Its estimated association is positive. Brand Positioning, Brand Extension, and Brand Marketing are not statistically significant.</p>
+<p>The model explains approximately <strong>57.5%</strong> of the observed variation in LD Loyalty Driver.</p>
+<hr/>
+<h1><a href="#33-purchase-intention-pd-price-driver" id="33-purchase-intention-pd-price-driver">3.3 Purchase Intention / PD Price Driver</a></h1>
+<h2><a href="#research-question" id="research-question">Research question</a></h2>
+<p>This model examines how the four Brand Management dimensions are associated with the outcome used in the thesis’s <strong>Purchase Intention</strong> analysis.</p>
+<h2><a href="#data-inspection" id="data-inspection">Data inspection</a></h2>
+<pre><code>. use "3.3.3_English.dta", clear
+
+. summarize brand_positioning brand_image brand_extension ///
+&gt;           brand_marketing pd_price_driver
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+brand_posi~g |         31    30174.02    18294.98    1393.45    59954.2
+ brand_image |         31     11072.9    6792.265    1912.27    20527.4
+brand_exte~n |         31      18.475    18.38584          2     102.25
+brand_mark~g |         31    227.4692    331.2354    7.34227    1841.94
+pd_price_d~r |         31    79.47691    108.2956   .1468689   394.6235
+
+</code></pre>
+<h2><a href="#ols-regression" id="ols-regression">OLS regression</a></h2>
+<pre><code>. regress pd_price_driver ///
+&gt;         brand_positioning brand_image brand_extension brand_marketing
+
+      Source |       SS           df       MS      Number of obs   =        31
+-------------+----------------------------------   F(4, 26)        =     15.93
+       Model |  249879.883         4  62469.9707   Prob &gt; F        =    0.0000
+    Residual |  101958.172        26  3921.46817   R-squared       =    0.7102
+-------------+----------------------------------   Adj R-squared   =    0.6656
+       Total |  351838.055        30  11727.9352   Root MSE        =    62.622
+
+-----------------------------------------------------------------------------------
+  pd_price_driver |      Coef.   Std. Err.      t    P&gt;|t|     [95% Conf. Interval]
+------------------+----------------------------------------------------------------
+brand_positioning |    .002747   .0006828     4.02   0.000     .0013435    .0041504
+      brand_image |   .0103197   .0018139     5.69   0.000     .0065912    .0140481
+  brand_extension |  -.2251725    .637603    -0.35   0.727    -1.535784    1.085439
+  brand_marketing |   -.100878   .0370039    -2.73   0.011    -.1769405   -.0248155
+            _cons |  -90.57168   26.83251    -3.38   0.002    -145.7267   -35.41667
+-----------------------------------------------------------------------------------
+
+</code></pre>
+<h2><a href="#interpretation" id="interpretation">Interpretation</a></h2>
+<p>The model has <strong>R² ≈ 0.7102</strong> and adjusted <strong>R² ≈ 0.6656</strong>.</p>
+<p><strong>Brand Positioning</strong> and <strong>Brand Image</strong> have positive, statistically significant coefficients. <strong>Brand Marketing</strong> is also statistically significant, but its coefficient in the surviving analytical data is <strong>negative</strong> (approximately <strong>−0.100878</strong>, <em>p</em> ≈ 0.011). <strong>Brand Extension</strong> is not statistically significant.</p>
+<p>The model explains approximately <strong>71.0%</strong> of the observed variation in PD Price Driver.</p>
+<blockquote>
+<p><strong>Archival discrepancy 2.</strong> The thesis prints the Brand Marketing coefficient as <strong>+0.100878</strong> and interprets it positively. The surviving DTA and the Stata rerun produce <strong>−0.100878</strong> with the corresponding standard error and p-value. The matching absolute magnitude and inferential statistics are consistent with an omitted minus sign when the result was transferred into the thesis. The replication preserves the Stata result and documents the historical discrepancy.</p>
+</blockquote>
+<hr/>
+<h1><a href="#4-brand-management-dimensions-and-brand-value" id="4-brand-management-dimensions-and-brand-value">4. Brand Management Dimensions and Brand Value</a></h1>
+<h2><a href="#41-research-question" id="41-research-question">4.1 Research question</a></h2>
+<p>The final model extends the analysis from Consumer Perception to <strong>Brand Value</strong>, examining how the four Brand Management dimensions are associated with the calculated Brand Value measure.</p>
+<h2><a href="#42-data-inspection" id="42-data-inspection">4.2 Data inspection</a></h2>
+<pre><code>. use "3.4_English.dta", clear
+
+. summarize brand_positioning brand_image brand_extension ///
+&gt;           brand_marketing brand_value
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+brand_posi~g |         31    26948.21    19481.98     393.45    67754.2
+ brand_image |         31     11072.9    6792.265    1912.27    20527.4
+brand_exte~n |         31      18.475    18.38584          2     102.25
+brand_mark~g |         31    227.4692    331.2354    7.34227    1841.94
+ brand_value |         31    595.1282    1293.958    .000018    6678.17
+
+</code></pre>
+<h2><a href="#43-ols-regression" id="43-ols-regression">4.3 OLS regression</a></h2>
+<pre><code>. regress brand_value ///
+&gt;         brand_positioning brand_image brand_extension brand_marketing
+
+      Source |       SS           df       MS      Number of obs   =        31
+-------------+----------------------------------   F(4, 26)        =     71.30
+       Model |  46033063.5         4  11508265.9   Prob &gt; F        =    0.0000
+    Residual |  4196764.19        26  161414.007   R-squared       =    0.9164
+-------------+----------------------------------   Adj R-squared   =    0.9036
+       Total |  50229827.7        30  1674327.59   Root MSE        =    401.76
+
+-----------------------------------------------------------------------------------
+      brand_value |      Coef.   Std. Err.      t    P&gt;|t|     [95% Conf. Interval]
+------------------+----------------------------------------------------------------
+brand_positioning |   .0096399   .0041344     2.33   0.028     .0011416    .0181382
+      brand_image |   .0122322   .0117586     1.04   0.308     -.011938    .0364024
+  brand_extension |  -1.387961   4.128248    -0.34   0.739    -9.873696    7.097774
+  brand_marketing |   3.488845   .2347026    14.86   0.000     3.006407    3.971283
+            _cons |  -568.0592   162.2318    -3.50   0.002    -901.5315    -234.587
+-----------------------------------------------------------------------------------
+
+</code></pre>
+<h2><a href="#44-interpretation" id="44-interpretation">4.4 Interpretation</a></h2>
+<p>The model uses <strong>31 observations</strong> and has <strong>R² ≈ 0.9164</strong> and adjusted <strong>R² ≈ 0.9036</strong>, the highest R² among the six reproduced specifications.</p>
+<p><strong>Brand Positioning</strong> has a positive and statistically significant coefficient of approximately <strong>0.00964</strong> (<em>p</em> ≈ 0.028). <strong>Brand Marketing</strong> has a positive and strongly statistically significant coefficient of approximately <strong>3.4888</strong> (<em>p</em> &lt; 0.001).</p>
+<p>Brand Image and Brand Extension are not statistically significant at the 5% level.</p>
+<hr/>
+<h1><a href="#5-cross-model-synthesis" id="5-cross-model-synthesis">5. Cross-Model Synthesis</a></h1>
+<p>The models reveal a differentiated pattern across the Brand Management dimensions:</p>
+<table>
+<thead>
+<tr><th> Model </th><th> Outcome </th><th> Statistically significant predictors (5% level) </th></tr>
+</thead>
+<tbody>
+<tr><td> 3.1 </td><td> Total Consumer Perception </td><td> Overall Brand Management (+) </td></tr>
+<tr><td> 3.2 </td><td> Total Consumer Perception </td><td> Brand Positioning (+); Brand Marketing (+) </td></tr>
+<tr><td> 3.3.1 </td><td> Brand Awareness / ED </td><td> Brand Positioning (+); Brand Marketing (+) </td></tr>
+<tr><td> 3.3.2 </td><td> Brand Attitude / LD </td><td> Brand Image (+) </td></tr>
+<tr><td> 3.3.3 </td><td> Purchase Intention / PD </td><td> Brand Positioning (+); Brand Image (+); Brand Marketing (−) </td></tr>
+<tr><td> 3.4 </td><td> Brand Value </td><td> Brand Positioning (+); Brand Marketing (+) </td></tr>
+</tbody>
+</table>
+<p>Across these specifications, <strong>Brand Positioning</strong> and <strong>Brand Marketing</strong> appear repeatedly in statistically significant relationships, although the surviving Purchase Intention model produces a negative Brand Marketing coefficient. <strong>Brand Image</strong> is particularly relevant in the Brand Attitude/Loyalty and Purchase Intention models. <strong>Brand Extension</strong> is not statistically significant at the 5% level in the multiple-regression specifications.</p>
+<p>These findings describe the associations in the thesis’s analytical design and sample. They should not be interpreted as establishing causal effects.</p>
+<hr/>
+<h1><a href="#6-reproducibility-and-provenance" id="6-reproducibility-and-provenance">6. Reproducibility and Provenance</a></h1>
+<p>This archive separates three forms of evidence:</p>
+<h3><a href="#historical-research-record" id="historical-research-record">Historical research record</a></h3>
+<p>The 2022 thesis contains the original research framing, hypotheses, reported regression tables, and contemporary interpretations.</p>
+<h3><a href="#analytical-data" id="analytical-data">Analytical data</a></h3>
+<p>The six Stata datasets preserve the variables and observations used for the regression analyses. English-language copies were prepared in 2026 by translating variable names and labels while retaining the analytical numerical content.</p>
+<h3><a href="#reconstructed-md-and-html-file" id="reconstructed-md-and-html-file">Reconstructed md and html File</a></h3>
+<p>The md and html File file were reconstructed from the datasets and thesis results. A 2026 Stata execution successfully reproduced all six models with 31 complete observations per regression.</p>
+<hr/>
+<h1><a href="#7-files-in-the-replication-package" id="7-files-in-the-replication-package">7. Files in the Replication Package</a></h1>
+<p>The core analytical package consists of:</p>
+<ul>
+<li><code>Brand_Management.md</code> — this dynamic Markdown source;</li>
+<li><code>Archival.do</code> —  Stata script;</li>
+<li><code>Archival.log</code> — raw Stata execution record;</li>
+<li><code>3.1_English.dta</code>;</li>
+<li><code>3.2_English.dta</code>;</li>
+<li><code>3.3.1_English.dta</code>;</li>
+<li><code>3.3.2_English.dta</code>;</li>
+<li><code>3.3.3_English.dta</code>;</li>
+<li><code>3.4_English.dta</code>.</li>
+</ul>
+<hr/>
+<h2><a href="#end-of-report" id="end-of-report">End of report</a></h2>
+<p><em>This dynamic report is intended as a archival companion to the translated undergraduate thesis.</em></p>
+</body></html>

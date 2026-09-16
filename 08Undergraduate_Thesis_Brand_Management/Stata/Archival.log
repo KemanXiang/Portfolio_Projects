@@ -1,0 +1,782 @@
+---------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/mac/Desktop/US/7_phD_Application/Keman_Xiang/Portfolio_Projects/8_Undergr
+> aduate_Thesis_Brand_Management_English/Stata/Archival.log
+  log type:  text
+ opened on:  16 Sep 2026, 15:07:57
+
+. 
+. display "======================================================================"
+======================================================================
+
+. display " BRAND MANAGEMENT AND CONSUMER PERCEPTION"
+ BRAND MANAGEMENT AND CONSUMER PERCEPTION
+
+. display "======================================================================"
+======================================================================
+
+. display "This log builds six OLS models from the thesis datasets."
+This log builds six OLS models from the thesis datasets.
+
+. display "All source datasets are loaded read-only; this script does not save over them."
+All source datasets are loaded read-only; this script does not save over them.
+
+. 
+. ********************************************************************************
+. ********************************************************************************
+. *
+. * Statistical specification:
+. *   All six models are ordinary least-squares regressions with an intercept.
+. *
+. * Significance language:
+. *   p < .05 is described as statistically significant at the 5% level.
+. *   Coefficients are interpreted as conditional associations in the multiple
+. *   regressions. This archival script does not reinterpret OLS associations as
+. *   causal effects.
+. *
+. * Sample:
+. *   Each reported regression uses 31 complete observations.
+. *   Some translated DTA files physically contain 172 rows because the surviving
+. *   source files retained blank/incomplete rows. Stata's regress command uses
+. *   complete cases for the variables in each specification.
+. *
+. * Translation:
+. *   Variable names and labels were translated from Chinese to English in 2026.
+. *   Numerical analytical content was preserved.
+. *
+. ********************************************************************************
+. 
+. 
+. ********************************************************************************
+. * SECTION 3.1
+. * BRAND MANAGEMENT -> TOTAL CONSUMER PERCEPTION
+. ********************************************************************************
+. *
+. * Research purpose
+. * ----------------
+. * Evaluate the overall linear relationship between the aggregate Brand
+. * Management measure and Total Consumer Perception.
+. *
+. * Model:
+. *   Total Consumer Perception_i =
+. *       beta_0 + beta_1 Brand Management_i + error_i
+. *
+. * Thesis interpretation:
+. *   The original thesis reported a positive relationship between overall brand
+. *   management and consumer perception.
+. *
+. use "3.1_English.dta", clear
+
+. 
+. display "---------------- DATA AUDIT: MODEL 3.1 ----------------"
+---------------- DATA AUDIT: MODEL 3.1 ----------------
+
+. describe
+
+Contains data from 3.1_English.dta
+  obs:            31                          
+ vars:             5                          16 Sep 2026 06:34
+ size:           341                          
+---------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+---------------------------------------------------------------------------------------------
+rank            byte    %8.0g                 Rank
+brand_managem~t float   %9.0g                 Brand Management
+total_consume~n float   %9.0g                 Total Consumer Perception
+brand           byte    %8.0g      brand      Brand
+company         byte    %8.0g      company    Company
+---------------------------------------------------------------------------------------------
+Sorted by: 
+
+. summarize brand_management total_consumer_perception
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+brand_mana~t |         31    594.1606    1294.402   .0000182   6678.174
+total_cons~n |         31    2512.295    4350.369   .5150438   15902.95
+
+. misstable summarize brand_management total_consumer_perception
+(variables nonmissing or string)
+
+. 
+. display "---------------- OLS ESTIMATION: MODEL 3.1 -------------"
+---------------- OLS ESTIMATION: MODEL 3.1 -------------
+
+. regress total_consumer_perception brand_management
+
+      Source |       SS           df       MS      Number of obs   =        31
+-------------+----------------------------------   F(1, 29)        =     22.84
+       Model |   250128586         1   250128586   Prob > F        =    0.0000
+    Residual |   317642702        29  10953196.6   R-squared       =    0.4405
+-------------+----------------------------------   Adj R-squared   =    0.4213
+       Total |   567771288        30  18925709.6   Root MSE        =    3309.6
+
+----------------------------------------------------------------------------------
+total_consumer~n |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-----------------+----------------------------------------------------------------
+brand_management |   2.230755   .4668106     4.78   0.000      1.27602     3.18549
+           _cons |   1186.868   655.9404     1.81   0.081    -154.6805    2528.417
+----------------------------------------------------------------------------------
+
+. estimates store M31
+
+. 
+. * Stata output (2026):
+. *   N                 = 31
+. *   F(1,29)           = 22.84
+. *   Prob > F          = 0.0000
+. *   R-squared         = 0.4405
+. *   Adjusted R-squared= 0.4213
+. *
+. *   brand_management:
+. *       b = 2.230755; SE = 0.466811; t = 4.78; p < .001
+. *       95% CI = [1.276020, 3.185490]
+. *
+. * Interpretation
+. * --------------
+. * The estimated coefficient is positive and statistically significant.
+. * Within this analytical sample, a one-unit increase in the aggregate Brand
+. * Management measure is associated with an estimated 2.231-unit increase in
+. * Total Consumer Perception. The model explains approximately 44.1% of the
+. * observed variation in Total Consumer Perception.
+. *
+. 
+. 
+. ********************************************************************************
+. * SECTION 3.2
+. * BRAND MANAGEMENT DIMENSIONS -> TOTAL CONSUMER PERCEPTION
+. ********************************************************************************
+. *
+. * Research purpose
+. * ----------------
+. * Decompose Brand Management into four dimensions and examine their conditional
+. * relationships with Total Consumer Perception.
+. *
+. * Predictors:
+. *   1. Brand Positioning
+. *   2. Brand Image
+. *   3. Brand Extension
+. *   4. Brand Marketing
+. *
+. * Model:
+. *   Total Consumer Perception_i =
+. *       beta_0 + beta_1 Positioning_i + beta_2 Image_i
+. *       + beta_3 Extension_i + beta_4 Marketing_i + error_i
+. *
+. use "3.2_English.dta", clear
+
+. 
+. display "---------------- DATA AUDIT: MODEL 3.2 ----------------"
+---------------- DATA AUDIT: MODEL 3.2 ----------------
+
+. describe
+
+Contains data from 3.2_English.dta
+  obs:           172                          
+ vars:             8                          16 Sep 2026 06:34
+ size:         5,160                          
+---------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+---------------------------------------------------------------------------------------------
+rank            double  %10.0g                Rank
+brand           byte    %8.0g      brand      Brand
+company         byte    %8.0g      company    Company
+brand_positio~g float   %9.0g                 1. Brand Positioning
+brand_image     float   %9.0g                 2. Brand Image
+brand_extension float   %9.0g                 3. Brand Extension
+brand_marketing float   %9.0g                 4. Brand Marketing
+total_consume~n float   %9.0g                 Total Consumer Perception
+---------------------------------------------------------------------------------------------
+Sorted by: 
+
+. summarize brand_positioning brand_image brand_extension brand_marketing ///
+>           total_consumer_perception
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+brand_posi~g |         31    30174.02    18294.98    1393.45    59954.2
+ brand_image |         31     11072.9    6792.265    1912.27    20527.4
+brand_exte~n |         31      18.475    18.38584          2     102.25
+brand_mark~g |         31    238.9669      309.96    3.21728   1094.182
+total_cons~n |         39    2000.245    3999.047        .46   15902.95
+
+. misstable summarize brand_positioning brand_image brand_extension ///
+>                     brand_marketing total_consumer_perception
+                                                               Obs<.
+                                                +------------------------------
+               |                                | Unique
+      Variable |     Obs=.     Obs>.     Obs<.  | values        Min         Max
+  -------------+--------------------------------+------------------------------
+  brand_posi~g |       141                  31  |     27    1393.45     59954.2
+   brand_image |       141                  31  |     31    1912.27     20527.4
+  brand_exte~n |       141                  31  |     25          2      102.25
+  brand_mark~g |       141                  31  |     31    3.21728    1094.182
+  total_cons~n |       133                  39  |     29        .46    15902.95
+  -----------------------------------------------------------------------------
+
+. 
+. display "---------------- OLS ESTIMATION: MODEL 3.2 -------------"
+---------------- OLS ESTIMATION: MODEL 3.2 -------------
+
+. regress total_consumer_perception ///
+>         brand_positioning brand_image brand_extension brand_marketing
+
+      Source |       SS           df       MS      Number of obs   =        31
+-------------+----------------------------------   F(4, 26)        =     16.25
+       Model |   405359841         4   101339960   Prob > F        =    0.0000
+    Residual |   162104778        26  6234799.17   R-squared       =    0.7143
+-------------+----------------------------------   Adj R-squared   =    0.6704
+       Total |   567464620        30  18915487.3   Root MSE        =      2497
+
+-----------------------------------------------------------------------------------
+total_consumer_~n |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+------------------+----------------------------------------------------------------
+brand_positioning |   .0667448   .0303794     2.20   0.037     .0042991    .1291906
+      brand_image |   .1084275   .0793777     1.37   0.184    -.0547357    .2715906
+  brand_extension |  -8.021378   25.36104    -0.32   0.754    -60.15175    44.10899
+  brand_marketing |   7.832343   1.987196     3.94   0.001     3.747604    11.91708
+            _cons |  -2421.746    1129.36    -2.14   0.042     -4743.18    -100.313
+-----------------------------------------------------------------------------------
+
+. estimates store M32
+
+. 
+. * Stata output (2026):
+. *   N = 31; F(4,26) = 16.25; Prob > F = 0.0000
+. *   R-squared = 0.7143; Adjusted R-squared = 0.6704
+. *
+. *   Brand Positioning: b =  0.066745; SE = 0.030379; p = .037
+. *   Brand Image:       b =  0.108428; SE = 0.079378; p = .184
+. *   Brand Extension:   b = -8.021378; SE = 25.36104; p = .754
+. *   Brand Marketing:   b =  7.832343; SE = 1.987196; p = .001
+. *
+. * Interpretation
+. * --------------
+. * Holding the other three dimensions constant, Brand Positioning and Brand
+. * Marketing show statistically significant positive associations with Total
+. * Consumer Perception at the 5% level. Brand Image and Brand Extension are not
+. * statistically significant in this specification. The four-predictor model
+. * explains approximately 71.4% of the observed variation in the outcome.
+. 
+. 
+. ********************************************************************************
+. * SECTION 3.3.1
+. * BRAND MANAGEMENT DIMENSIONS -> BRAND AWARENESS
+. * Surviving operational measure: ED EXPANSION DRIVER
+. ********************************************************************************
+. *
+. * Research purpose
+. * ----------------
+. * Examine which Brand Management dimensions are associated with the thesis's
+. * Brand Awareness component of Consumer Perception.
+. *
+. * Archival measurement note:
+. *   In the surviving analytical dataset, this outcome is named
+. *   ed_expansion_driver (ED Expansion Driver). The thesis uses this measure in
+. *   its Brand Awareness analysis. This script preserves that surviving
+. *   operationalization rather than relabeling the numerical variable.
+. *
+. use "3.3.1_English.dta", clear
+
+. 
+. display "--------------- DATA AUDIT: MODEL 3.3.1 ---------------"
+--------------- DATA AUDIT: MODEL 3.3.1 ---------------
+
+. describe
+
+Contains data from 3.3.1_English.dta
+  obs:           172                          
+ vars:             8                          16 Sep 2026 06:34
+ size:         5,160                          
+---------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+---------------------------------------------------------------------------------------------
+rank            double  %10.0g                Rank
+brand           byte    %8.0g      brand      Brand
+company         byte    %8.0g      company    Company
+brand_positio~g float   %9.0g                 1. Brand Positioning
+brand_image     float   %9.0g                 2. Brand Image
+brand_extension float   %9.0g                 3. Brand Extension
+brand_marketing float   %9.0g                 4. Brand Marketing
+ed_expansion_~r float   %9.0g                 ED Expansion Driver
+---------------------------------------------------------------------------------------------
+Sorted by: 
+
+. summarize brand_positioning brand_image brand_extension brand_marketing ///
+>           ed_expansion_driver
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+brand_posi~g |         31    30174.02    18294.98    1393.45    59954.2
+ brand_image |         31     11072.9    6792.268    1912.27   20527.41
+brand_exte~n |         31      18.475    18.38584          2     102.25
+brand_mark~g |         31    227.4692     331.235    7.34227   1841.937
+ed_expansi~r |         31    2.011966    2.173394   .2809466   11.31553
+
+. misstable summarize brand_positioning brand_image brand_extension ///
+>                     brand_marketing ed_expansion_driver
+                                                               Obs<.
+                                                +------------------------------
+               |                                | Unique
+      Variable |     Obs=.     Obs>.     Obs<.  | values        Min         Max
+  -------------+--------------------------------+------------------------------
+  brand_posi~g |       141                  31  |     27    1393.45     59954.2
+   brand_image |       141                  31  |     31    1912.27    20527.41
+  brand_exte~n |       141                  31  |     25          2      102.25
+  brand_mark~g |       141                  31  |     31    7.34227    1841.937
+  ed_expansi~r |       141                  31  |     24   .2809466    11.31553
+  -----------------------------------------------------------------------------
+
+. 
+. display "--------------- OLS ESTIMATION: MODEL 3.3.1 ------------"
+--------------- OLS ESTIMATION: MODEL 3.3.1 ------------
+
+. regress ed_expansion_driver ///
+>         brand_positioning brand_image brand_extension brand_marketing
+
+      Source |       SS           df       MS      Number of obs   =        31
+-------------+----------------------------------   F(4, 26)        =     43.34
+       Model |  123.227255         4  30.8068138   Prob > F        =    0.0000
+    Residual |  18.4819831        26  .710845502   R-squared       =    0.8696
+-------------+----------------------------------   Adj R-squared   =    0.8495
+       Total |  141.709238        30  4.72364127   Root MSE        =    .84312
+
+-----------------------------------------------------------------------------------
+ed_expansion_dr~r |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+------------------+----------------------------------------------------------------
+brand_positioning |   .0000401   9.19e-06     4.36   0.000     .0000212     .000059
+      brand_image |  -.0000299   .0000244    -1.22   0.232    -.0000801    .0000203
+  brand_extension |   .0078708   .0085845     0.92   0.368    -.0097749    .0255164
+  brand_marketing |   .0052111   .0004982    10.46   0.000      .004187    .0062351
+            _cons |  -.1976356   .3612639    -0.55   0.589    -.9402241     .544953
+-----------------------------------------------------------------------------------
+
+. estimates store M331
+
+. 
+. * Stata output (2026):
+. *   N = 31; F(4,26) = 43.34; Prob > F = 0.0000
+. *   R-squared = 0.8696; Adjusted R-squared = 0.8495
+. *
+. *   Brand Positioning: b =  0.0000401; p < .001
+. *   Brand Image:       b = -0.0000299; p = .232
+. *   Brand Extension:   b =  0.0078708; p = .368
+. *   Brand Marketing:   b =  0.0052111; p < .001
+. *   Constant:          b = -0.1976356; p = .589
+. *
+. * Interpretation
+. * --------------
+. * Brand Positioning and Brand Marketing have statistically significant positive
+. * coefficients. Brand Image and Brand Extension are not statistically
+. * significant at the 5% level. The model R-squared is approximately 0.870.
+. 
+. ********************************************************************************
+. * SECTION 3.3.2
+. * BRAND MANAGEMENT DIMENSIONS -> BRAND ATTITUDE / LOYALTY
+. * Surviving operational measure: LD LOYALTY DRIVER
+. ********************************************************************************
+. *
+. * Research purpose
+. * ----------------
+. * Examine which Brand Management dimensions are associated with the thesis's
+. * Brand Attitude component, operationalized in the surviving analytical data
+. * as the LD Loyalty Driver.
+. 
+. use "3.3.2_English.dta", clear
+
+. 
+. display "--------------- DATA AUDIT: MODEL 3.3.2 ---------------"
+--------------- DATA AUDIT: MODEL 3.3.2 ---------------
+
+. describe
+
+Contains data from 3.3.2_English.dta
+  obs:           172                          
+ vars:             8                          16 Sep 2026 06:34
+ size:         5,160                          
+---------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+---------------------------------------------------------------------------------------------
+rank            double  %10.0g                Rank
+brand           byte    %8.0g      brand      Brand
+company         byte    %8.0g      company    Company
+brand_positio~g float   %9.0g                 1. Brand Positioning
+brand_image     float   %9.0g                 2. Brand Image
+brand_extension float   %9.0g                 3. Brand Extension
+brand_marketing float   %9.0g                 4. Brand Marketing
+ld_loyalty_dr~r float   %9.0g                 LD Loyalty Driver
+---------------------------------------------------------------------------------------------
+Sorted by: 
+
+. summarize brand_positioning brand_image brand_extension brand_marketing ///
+>           ld_loyalty_driver
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+brand_posi~g |         31    30174.02    18294.98    1393.45    59954.2
+ brand_image |         31     11072.9    6792.265    1912.27    20527.4
+brand_exte~n |         31      18.475    18.38584          2     102.25
+brand_mark~g |         31    227.4692    331.2354    7.34227    1841.94
+ld_loyalty~r |         31    .8694234    .0259865   .8432609   .9382778
+
+. misstable summarize brand_positioning brand_image brand_extension ///
+>                     brand_marketing ld_loyalty_driver
+                                                               Obs<.
+                                                +------------------------------
+               |                                | Unique
+      Variable |     Obs=.     Obs>.     Obs<.  | values        Min         Max
+  -------------+--------------------------------+------------------------------
+  brand_posi~g |       141                  31  |     27    1393.45     59954.2
+   brand_image |       141                  31  |     31    1912.27     20527.4
+  brand_exte~n |       141                  31  |     25          2      102.25
+  brand_mark~g |       141                  31  |     31    7.34227     1841.94
+  ld_loyalty~r |       141                  31  |      6   .8432609    .9382778
+  -----------------------------------------------------------------------------
+
+. 
+. display "--------------- OLS ESTIMATION: MODEL 3.3.2 ------------"
+--------------- OLS ESTIMATION: MODEL 3.3.2 ------------
+
+. regress ld_loyalty_driver ///
+>         brand_positioning brand_image brand_extension brand_marketing
+
+      Source |       SS           df       MS      Number of obs   =        31
+-------------+----------------------------------   F(4, 26)        =      8.79
+       Model |  .011647217         4  .002911804   Prob > F        =    0.0001
+    Residual |  .008611686        26  .000331219   R-squared       =    0.5749
+-------------+----------------------------------   Adj R-squared   =    0.5095
+       Total |  .020258903        30  .000675297   Root MSE        =     .0182
+
+-----------------------------------------------------------------------------------
+ld_loyalty_driver |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+------------------+----------------------------------------------------------------
+brand_positioning |   2.00e-08   1.98e-07     0.10   0.921    -3.88e-07    4.28e-07
+      brand_image |   2.74e-06   5.27e-07     5.19   0.000     1.65e-06    3.82e-06
+  brand_extension |   -.000076   .0001853    -0.41   0.685    -.0004569    .0003049
+  brand_marketing |   9.06e-06   .0000108     0.84   0.407     -.000013    .0000312
+            _cons |   .8378477   .0077982   107.44   0.000     .8218183    .8538771
+-----------------------------------------------------------------------------------
+
+. estimates store M332
+
+. 
+. * Stata output (2026):
+. *   N = 31; F(4,26) = 8.79; Prob > F = 0.0001
+. *   R-squared = 0.5749; Adjusted R-squared = 0.5095
+. *
+. *   Brand Positioning: b =  2.00e-08; p = .921
+. *   Brand Image:       b =  2.74e-06; p < .001
+. *   Brand Extension:   b = -0.000076; p = .685
+. *   Brand Marketing:   b =  9.06e-06; p = .407
+. *
+. * Interpretation
+. * --------------
+. * Brand Image is the only Brand Management dimension with a statistically
+. * significant coefficient at the 5% level in this model, and its estimated
+. * association is positive. The remaining three dimensions are not statistically
+. * significant. The model explains approximately 57.5% of observed variation
+. * in the LD Loyalty Driver.
+. 
+. ********************************************************************************
+. * SECTION 3.3.3
+. * BRAND MANAGEMENT DIMENSIONS -> PURCHASE INTENTION
+. * Surviving operational measure: PD PRICE DRIVER
+. ********************************************************************************
+. *
+. * Research purpose
+. * ----------------
+. * Examine which Brand Management dimensions are associated with the thesis's
+. * Purchase Intention component of Consumer Perception.
+. *
+. * Archival measurement note:
+. *   The surviving outcome variable is pd_price_driver (PD Price Driver).
+. *
+. use "3.3.3_English.dta", clear
+
+. 
+. display "--------------- DATA AUDIT: MODEL 3.3.3 ---------------"
+--------------- DATA AUDIT: MODEL 3.3.3 ---------------
+
+. describe
+
+Contains data from 3.3.3_English.dta
+  obs:           172                          
+ vars:             8                          16 Sep 2026 06:34
+ size:         5,160                          
+---------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+---------------------------------------------------------------------------------------------
+rank            double  %10.0g                Rank
+brand           byte    %8.0g      brand      Brand
+company         byte    %8.0g      company    Company
+brand_positio~g float   %9.0g                 1. Brand Positioning
+brand_image     float   %9.0g                 2. Brand Image
+brand_extension float   %9.0g                 3. Brand Extension
+brand_marketing float   %9.0g                 4. Brand Marketing
+pd_price_driver float   %9.0g                 PD Price Driver
+---------------------------------------------------------------------------------------------
+Sorted by: 
+
+. summarize brand_positioning brand_image brand_extension brand_marketing ///
+>           pd_price_driver
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+brand_posi~g |         31    30174.02    18294.98    1393.45    59954.2
+ brand_image |         31     11072.9    6792.265    1912.27    20527.4
+brand_exte~n |         31      18.475    18.38584          2     102.25
+brand_mark~g |         31    227.4692    331.2354    7.34227    1841.94
+pd_price_d~r |         31    79.47691    108.2956   .1468689   394.6235
+
+. misstable summarize brand_positioning brand_image brand_extension ///
+>                     brand_marketing pd_price_driver
+                                                               Obs<.
+                                                +------------------------------
+               |                                | Unique
+      Variable |     Obs=.     Obs>.     Obs<.  | values        Min         Max
+  -------------+--------------------------------+------------------------------
+  brand_posi~g |       141                  31  |     27    1393.45     59954.2
+   brand_image |       141                  31  |     31    1912.27     20527.4
+  brand_exte~n |       141                  31  |     25          2      102.25
+  brand_mark~g |       141                  31  |     31    7.34227     1841.94
+  pd_price_d~r |       141                  31  |     22   .1468689    394.6235
+  -----------------------------------------------------------------------------
+
+. 
+. display "--------------- OLS ESTIMATION: MODEL 3.3.3 ------------"
+--------------- OLS ESTIMATION: MODEL 3.3.3 ------------
+
+. regress pd_price_driver ///
+>         brand_positioning brand_image brand_extension brand_marketing
+
+      Source |       SS           df       MS      Number of obs   =        31
+-------------+----------------------------------   F(4, 26)        =     15.93
+       Model |  249879.883         4  62469.9707   Prob > F        =    0.0000
+    Residual |  101958.172        26  3921.46817   R-squared       =    0.7102
+-------------+----------------------------------   Adj R-squared   =    0.6656
+       Total |  351838.055        30  11727.9352   Root MSE        =    62.622
+
+-----------------------------------------------------------------------------------
+  pd_price_driver |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+------------------+----------------------------------------------------------------
+brand_positioning |    .002747   .0006828     4.02   0.000     .0013435    .0041504
+      brand_image |   .0103197   .0018139     5.69   0.000     .0065912    .0140481
+  brand_extension |  -.2251725    .637603    -0.35   0.727    -1.535784    1.085439
+  brand_marketing |   -.100878   .0370039    -2.73   0.011    -.1769405   -.0248155
+            _cons |  -90.57168   26.83251    -3.38   0.002    -145.7267   -35.41667
+-----------------------------------------------------------------------------------
+
+. estimates store M333
+
+. 
+. * Stata output (2026):
+. *   N = 31; F(4,26) = 15.93; Prob > F = 0.0000
+. *   R-squared = 0.7102; Adjusted R-squared = 0.6656
+. *
+. *   Brand Positioning: b =  0.0027470; p < .001
+. *   Brand Image:       b =  0.0103197; p < .001
+. *   Brand Extension:   b = -0.2251725; p = .727
+. *   Brand Marketing:   b = -0.1008780; p = .011
+. *
+. * Interpretation of the surviving analytical data
+. * ------------------------------------------------
+. * Brand Positioning and Brand Image have statistically significant positive
+. * coefficients. Brand Marketing is also statistically significant, but its
+. * coefficient in the surviving data is NEGATIVE. Brand Extension is not
+. * statistically significant. The model explains approximately 71.0% of the
+. * observed variation in PD Price Driver.
+. *
+. * REPLICATION NOTE 3.3.3
+. * ----------------------
+. * The thesis prints Brand Marketing as +0.100878 and interprets it positively.
+. * The achived DTA and Stata rerun produce -0.100878, with the same
+. * absolute coefficient magnitude and corresponding SE/p-value pattern.
+. * This is consistent with an omitted minus sign when the result was transferred
+. * to the thesis. For archival integrity, this script reports the Stata rerun
+. * without silently changing the historical thesis.
+. 
+. 
+. ********************************************************************************
+. * SECTION 3.4
+. * BRAND MANAGEMENT DIMENSIONS -> BRAND VALUE
+. ********************************************************************************
+. *
+. * Research purpose
+. * ----------------
+. * Extended analysis of how the four Brand Management dimensions relate to
+. * Brand Value.
+. *
+. use "3.4_English.dta", clear
+
+. 
+. display "---------------- DATA AUDIT: MODEL 3.4 ----------------"
+---------------- DATA AUDIT: MODEL 3.4 ----------------
+
+. describe
+
+Contains data from 3.4_English.dta
+  obs:           172                          
+ vars:             8                          16 Sep 2026 06:34
+ size:         5,160                          
+---------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+---------------------------------------------------------------------------------------------
+rank            double  %10.0g                Rank
+brand           byte    %8.0g      brand      Brand
+company         byte    %8.0g      company    Company
+brand_positio~g float   %9.0g                 1. Brand Positioning
+brand_image     float   %9.0g                 2. Brand Image
+brand_extension float   %9.0g                 3. Brand Extension
+brand_marketing float   %9.0g                 4. Brand Marketing
+brand_value     float   %9.0g                 Brand Value
+---------------------------------------------------------------------------------------------
+Sorted by: 
+
+. summarize brand_positioning brand_image brand_extension brand_marketing ///
+>           brand_value
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+brand_posi~g |         31    26948.21    19481.98     393.45    67754.2
+ brand_image |         31     11072.9    6792.265    1912.27    20527.4
+brand_exte~n |         31      18.475    18.38584          2     102.25
+brand_mark~g |         31    227.4692    331.2354    7.34227    1841.94
+ brand_value |         31    595.1282    1293.958    .000018    6678.17
+
+. misstable summarize brand_positioning brand_image brand_extension ///
+>                     brand_marketing brand_value
+                                                               Obs<.
+                                                +------------------------------
+               |                                | Unique
+      Variable |     Obs=.     Obs>.     Obs<.  | values        Min         Max
+  -------------+--------------------------------+------------------------------
+  brand_posi~g |       141                  31  |     30     393.45     67754.2
+   brand_image |       141                  31  |     31    1912.27     20527.4
+  brand_exte~n |       141                  31  |     25          2      102.25
+  brand_mark~g |       141                  31  |     31    7.34227     1841.94
+   brand_value |       141                  31  |     30    .000018     6678.17
+  -----------------------------------------------------------------------------
+
+. 
+. display "---------------- OLS ESTIMATION: MODEL 3.4 -------------"
+---------------- OLS ESTIMATION: MODEL 3.4 -------------
+
+. regress brand_value ///
+>         brand_positioning brand_image brand_extension brand_marketing
+
+      Source |       SS           df       MS      Number of obs   =        31
+-------------+----------------------------------   F(4, 26)        =     71.30
+       Model |  46033063.5         4  11508265.9   Prob > F        =    0.0000
+    Residual |  4196764.19        26  161414.007   R-squared       =    0.9164
+-------------+----------------------------------   Adj R-squared   =    0.9036
+       Total |  50229827.7        30  1674327.59   Root MSE        =    401.76
+
+-----------------------------------------------------------------------------------
+      brand_value |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+------------------+----------------------------------------------------------------
+brand_positioning |   .0096399   .0041344     2.33   0.028     .0011416    .0181382
+      brand_image |   .0122322   .0117586     1.04   0.308     -.011938    .0364024
+  brand_extension |  -1.387961   4.128248    -0.34   0.739    -9.873696    7.097774
+  brand_marketing |   3.488845   .2347026    14.86   0.000     3.006407    3.971283
+            _cons |  -568.0592   162.2318    -3.50   0.002    -901.5315    -234.587
+-----------------------------------------------------------------------------------
+
+. estimates store M34
+
+. 
+. *  Stata output (2026):
+. *   N = 31; F(4,26) = 71.30; Prob > F = 0.0000
+. *   R-squared = 0.9164; Adjusted R-squared = 0.9036
+. *
+. *   Brand Positioning: b =  0.0096399; p = .028
+. *   Brand Image:       b =  0.0122322; p = .308
+. *   Brand Extension:   b = -1.387961;  p = .739
+. *   Brand Marketing:   b =  3.488845;  p < .001
+. *
+. * Interpretation
+. * --------------
+. * Brand Positioning and Brand Marketing have statistically significant positive
+. * coefficients at the 5% level. Brand Image and Brand Extension are not
+. * statistically significant. This specification has the highest R-squared of
+. * the six reproduced models (approximately 0.916).
+. 
+. ********************************************************************************
+. * CROSS-MODEL SYNTHESIS
+. ********************************************************************************
+. *
+. *  Pattern across the six specifications:
+. *
+. *   3.1 Overall Brand Management:
+. *       positive, statistically significant association with Total Consumer
+. *       Perception.
+. *
+. *   3.2 Total Consumer Perception:
+. *       significant positive coefficients for Brand Positioning and
+. *       Brand Marketing.
+. *
+. *   3.3.1 Brand Awareness / ED:
+. *       significant positive coefficients for Brand Positioning and
+. *       Brand Marketing.
+. *
+. *   3.3.2 Brand Attitude / LD:
+. *       significant positive coefficient for Brand Image.
+. *
+. *   3.3.3 Purchase Intention / PD:
+. *       significant positive coefficients for Brand Positioning and Brand Image;
+. *       significant NEGATIVE coefficient for Brand Marketing in the surviving
+. *       analytical data; Brand Extension is not significant.
+. *
+. *   3.4 Brand Value:
+. *       significant positive coefficients for Brand Positioning and
+. *       Brand Marketing.
+. *
+. * Caution
+. * -------
+. * These are OLS associations from the thesis's analytical design and
+. * dataset. Statistical significance does not by itself establish causal effects.
+. * This archive preserves the historical specification rather
+. * than redesigning the undergraduate study.
+. *
+. ********************************************************************************
+. * REPRODUCIBILITY AND PROVENANCE NOTES
+. ********************************************************************************
+. *
+. * 1. The six English .dta files are translations of surviving Chinese-language
+. *    Stata datasets. Variable names/labels were translated; analytical values
+. *    were preserved.
+. *
+. * 2. The scripts were executed in Stata and successfully reproduced all
+. *    six models with N = 31 complete observations per regression.
+. *
+. * 3. No source dataset is overwritten by this script.
+. *
+. ********************************************************************************
+. * END
+. ********************************************************************************
+. 
+. display "======================================================================"
+======================================================================
+
+. display " ALL SIX MODELS COMPLETED"
+ ALL SIX MODELS COMPLETED
+
+. display " Output saved to Archival.log"
+ Output saved to Archival.log
+
+. display "======================================================================"
+======================================================================
+
+. 
+. log close
+      name:  <unnamed>
+       log:  /Users/mac/Desktop/US/7_phD_Application/Keman_Xiang/Portfolio_Projects/8_Undergr
+> aduate_Thesis_Brand_Management_English/Stata/Archival.log
+  log type:  text
+ closed on:  16 Sep 2026, 15:07:57
+---------------------------------------------------------------------------------------------
